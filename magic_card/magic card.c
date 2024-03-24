@@ -96,6 +96,7 @@ int main()
 		system("cls");
 	}
 	
+	free(Yes_NO);
 
 	printf("당신이 생각한 숫자는 %d입니다.", RENUMBER);
 	
