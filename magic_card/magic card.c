@@ -30,7 +30,7 @@
 #include <string.h>
 
 //함수 선언
-void CARD_NUMBER(int n, int number1);
+void CARD_NUMBER(int n, int number1, int k);
 
 int main()
 {
@@ -46,6 +46,9 @@ int main()
 	//생각한 숫자
 	int RENUMBER = 0;
 
+	//개행 숫자
+	int k = 0;
+
 	//사용자가 Yes 와 No 중에 입력한 값을 비교하기 위한 변수 선언
 	char* Yes_NO = malloc(sizeof(char)*10);
 	
@@ -57,24 +60,45 @@ int main()
 
 	//number1에 2의 n승을 저장
 	number1 = pow(2, n);
-	
+	k = n / 15;
 	//입력받은 카드 장의 수 만큼 반복 
 	for (int j = 1; j <= n; j++)
 	{
-
-		printf("|====================================|\n");
+		
+		if (k > 0)
+		{
+			printf("|");
+			for (int i = 0; i < (n / 8) + 1; i++)
+				printf("===========================================================================");
+			printf("|\n");
+		}
+	
+		else
+			printf("|===========================================================================|\n");
+	
 
 		//함수 호출 ,j는 반복 횟수 , number1은 2의 n승 만큼의 수
-		CARD_NUMBER(j, number1);
+		CARD_NUMBER(j, number1,k+1);
 
-		printf("|\n");
-		printf("|====================================|\n");
-		printf("\n");
+		if (k > 0)
+		{
+			printf("|\n");
+			printf("|");
+			for (int i = 0; i < k + 1; i++)
+				printf("===========================================================================");
+			printf("|\n");
+		}
+		else
+		{
+			printf("|\n");
+			printf("|===========================================================================|\n");
+			printf("\n");
+		}
+		
 
 
 		printf("생각한 숫자가 있나요? 있으면 Yes 없으면 No을 입력해주세요: ");
 		scanf("%s",Yes_NO);
-		//버퍼를 비우기 위해 사용
 	
 		//카드안에 숫자가 있으면 1 없으면 0을 HEARTNUM에 저장
 		if (strcmp(Yes_NO,yes)==0)
@@ -117,7 +141,7 @@ int main()
 		-원리는 카드의 장수가 하나씩 증가할때마다 0과 1은 2배씩 늘어난다. 이를 이용해서 1에 해당하는 숫자를 출력
 
 ******************************************************************************************************************************/
-void CARD_NUMBER(int n, int number1)
+void CARD_NUMBER(int n, int number1, int k)
 {
 	//홀수 또는 짝수 변수 초기화
 	int numberX = 0;
@@ -131,8 +155,7 @@ void CARD_NUMBER(int n, int number1)
 	//한 행에 숫자가 몇개 출력됐는지 알려주는 변수
 	int j = 0;
 
-	//카드 크기를 맞추기 위한 변수 선언 ex) 5개의 숫자가 나와야 알맞게 카드를 만들 수 있는데 한 두개정도 숫자만 나오면 나머지 4,3,개를 공백으로 채운다.
-	trash = number1 % 6;
+	
 
 	printf("|");
 	//1 ~ number-1 숫자중에 1에 해당하는 숫자만 출력
@@ -144,17 +167,20 @@ void CARD_NUMBER(int n, int number1)
 		//만약에 numberX가 홀수고 i가 0보다크면 숫자 출력
 		if (numberX % 2 != 0  && i > 0)
 		{
-			printf("%6d", i);
+			printf("%15d", i);
 			j++;
 		}
 
+		//카드 크기를 맞추기 위한 변수 선언 ex) 5개의 숫자가 나와야 알맞게 카드를 만들 수 있는데 한 두개정도 숫자만 나오면 나머지 4,3,개를 공백으로 채운다.
+		trash = (5 * k) - j;
+
 		//빈 숫자만큼 공백 채우기
 		if (i +1 == number1)
-			for (int k = 0; k < trash; k++)
-				printf("      ");
+			for (int m = 0; m < trash; m++)
+				printf("               ");
 
 		//j가 6이면 개행
-		if (j == 6)
+		if (j == 5 * k )
 		{
 			printf("|");
 			printf("\n");
