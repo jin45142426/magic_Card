@@ -46,6 +46,7 @@ int main()
 	//생각한 숫자
 	int RENUMBER = 0;
 
+	//사용자가 Yes 와 No 중에 입력한 값을 비교하기 위한 변수 선언
 	char* Yes_NO = malloc(sizeof(char)*10);
 	
 	char* yes = { "Yes" };
@@ -75,13 +76,13 @@ int main()
 		scanf("%s",Yes_NO);
 		//버퍼를 비우기 위해 사용
 	
-		
+		//카드안에 숫자가 있으면 1 없으면 0을 HEARTNUM에 저장
 		if (strcmp(Yes_NO,yes)==0)
 			HEARTNUM = 1;
 		else if (strcmp(Yes_NO, no) == 0)
 			HEARTNUM = 0;
 
-		//0 또는 1 외의 문자나 숫자를 입력하면 프로그램 종료
+		//Yes 또는 No 외의 문자나 숫자를 입력하면 프로그램 종료
 		if (strcmp(Yes_NO, yes) != 0 && strcmp(Yes_NO, no) != 0)
 		{
 			printf("Yes또는 No만 입력해주시요!");
